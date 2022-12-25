@@ -1,22 +1,22 @@
 import java.util.Random;
 import java.util.Scanner;
 public class everything {
-    card[] newDeck;
-    card[] firstPart;
-    card[] secondPart;
-    card[] readyDeck;
-    card[] playerCards;
-    card[] computerCards;
-    card[] boardCards;
-    card[] playerAll;
-    card[] computerAll;
-    card lastCard;
-        public int playerPoint;
-        public int computerPoint;
-        public int turnCounter;
-        public int boardCounter;
-        public int playerAllCounter;
-        public int computerAllCounter;
+        card[] newDeck;
+        card[] firstPart;
+        card[] secondPart;
+        card[] readyDeck;
+        card[] playerCards;
+        card[] computerCards;
+        card[] boardCards;
+        card[] playerAll;
+        card[] computerAll;
+        card lastCard;
+        private int playerPoint;
+        private int computerPoint;
+        private int turnCounter;
+        private int boardCounter;
+        private int playerAllCounter;
+        private int computerAllCounter;
 
 
 
@@ -39,19 +39,20 @@ public class everything {
 
 
             for(int i=0;i<13;i++) {
-                card spadeCards = new card(i+1,"spade");
+                card spadeCards = new card(i+1,"♠");
                 newDeck[i] = spadeCards;
             }
             for(int i=13;i<26;i++) {
-                card heartCards = new card(i-12,"heart");
+                card heartCards = new card(i-12,"♥");
                 newDeck[i] = heartCards;
             }
             for(int i=26;i<39;i++) {
-                card diamondCards = new card(i-25,"diamond");
+                card diamondCards = new card(i-25,"♦");
+
                 newDeck[i] = diamondCards;
             }
             for(int i=39;i<52;i++) {
-                card clubCards = new card(i-38,"club");
+                card clubCards = new card(i-38,"♣");
                 newDeck[i] = clubCards;
             }
             //It creates the deck.
@@ -133,38 +134,39 @@ public class everything {
             Random r = new Random();
             Scanner sc = new Scanner(System.in);
 
+
             for(int i=0;i<4;i++) {
 
                 for(int k=0;k<4;k++) {
 
 
-                    if(computerCards[i].value==lastCard.value||computerCards[i].value==11) {
+                    if(computerCards[k].getValue()==lastCard.getValue()||computerCards[k].getValue()==11) {
 
 
-                        boardCards[boardCounter] = computerCards[i];
+                        boardCards[boardCounter] = computerCards[k];
                         boardCounter++;
-                        computerCards[i].value = 0;
+                        computerCards[k].setValue(0);
                         computerPointMethod();
 
                         for(int j=0;j<boardCounter;j++) {
                             computerAll[computerAllCounter+j] = boardCards[j];
-                            boardCards[j].value = 0;
+                            boardCards[j].setValue(0);
                             turnCounter++;
 
                         }
                         boardCounter = 0;
                         computerAllCounter+=turnCounter;
                         turnCounter = 0;
-                        lastCard.value = 0;
+                        lastCard.setValue(0);
 
                     }
 
                 }
 
                 int x = r.nextInt(computerCards.length);
-                while(computerCards[x].value==0) {
+                while(computerCards[x].getValue()==0) {
                     x = r.nextInt(computerCards.length);
-                    if(computerCards[x].value!=0)
+                    if(computerCards[x].getValue()!=0)
                         break;
 
                     boardCards[boardCounter] = computerCards[x];
@@ -175,29 +177,31 @@ public class everything {
 
                 System.out.println("Choose a number to play your card 0,1,2 or 3.");
                 int chosen = sc.nextInt();
-                while(playerCards[chosen].value==0) {
+                while(playerCards[chosen].getValue()==0) {
                     System.out.println("You used this card please choose another card.Do not choose this number until the cards are dealt again.");
                     chosen = sc.nextInt();
-                    if (playerCards[chosen].value!=0) {
+                    if (playerCards[chosen].getValue()!=0) {
                         break;
                     }
                 }
 
 
-                if (playerCards[chosen].value==lastCard.value||playerCards[chosen].value==11) {
-                    boardCards[boardCounter] = playerCards[chosen];
-                    boardCounter++;
-                    playerCards[chosen].value = 0;
-                    playerPointMethod();
+                if (playerCards[chosen].getValue()==lastCard.getValue()||playerCards[chosen].getValue()==11) {
+                    if (lastCard.getValue() != 0) {
+                        boardCards[boardCounter] = playerCards[chosen];
+                        boardCounter++;
+                        playerCards[chosen].setValue(0);
+                        playerPointMethod();
 
-                    for(int j=0;j<boardCounter;j++) {
-                        playerAll[playerAllCounter+j] = boardCards[j];
-                        boardCards[j].value = 0;
-                        turnCounter++;
+                        for (int j = 0; j < boardCounter; j++) {
+                            playerAll[playerAllCounter + j] = boardCards[j];
+                            boardCards[j].setValue(0);
+                            turnCounter++;
+                        }
+                        boardCounter = 0;
+                        playerAllCounter += turnCounter;
+                        turnCounter = 0;
                     }
-                    boardCounter = 0;
-                    playerAllCounter+=turnCounter;
-                    turnCounter = 0;
                 }
 
 
@@ -205,7 +209,7 @@ public class everything {
                     boardCards[boardCounter] = playerCards[chosen];
                     lastCard = playerCards[chosen];
                     boardCounter++;
-                    playerCards[chosen].value = 0;
+                    playerCards[chosen].setValue(0);
                 }
 
             }
@@ -214,13 +218,16 @@ public class everything {
         public void playerPointMethod() {
 
             if(boardCounter==2) {
+                if(boardCards[0].getValue()==11&&boardCards[1].getValue()!=11){
+                    playerPoint-=10;
+                }
                 playerPoint+=10;
             }
             for(int i=0;i<boardCounter;i++) {
-                if (boardCards[i].value==2&&boardCards[i].name.equals("Club")) {
+                if (boardCards[i].getValue()==2&&boardCards[i].getName().equals("♣")) {
                     playerPoint+=1;
                 }
-                if (boardCards[i].value==10&&boardCards[i].name.equals("Diamond")) {
+                if (boardCards[i].getValue()==10&&boardCards[i].getName().equals("♦")) {
                     playerPoint+=2;
                 }
                 playerPoint+=1;
@@ -230,17 +237,28 @@ public class everything {
         public void computerPointMethod() {
 
             if(boardCounter==2) {
+                if(boardCards[0].getValue()==11&&boardCards[1].getValue()!=11){
+                    computerPoint-=10;
+                }
                 computerPoint+=10;
             }
             for(int i=0;i<boardCounter;i++) {
-                if (boardCards[i].value==2&&boardCards[i].name.equals("Club")) {
+                if (boardCards[i].getValue()==2&&boardCards[i].getName().equals("♣")) {
                     computerPoint+=1;
                 }
-                if (boardCards[i].value==10&&boardCards[i].name.equals("Diamond")) {
+                if (boardCards[i].getValue()==10&&boardCards[i].getName().equals("♦")) {
                     computerPoint+=2;
                 }
                 computerPoint+=1;
             }
+        }
+
+        public int getPlayerPoint() {
+            return this.playerPoint;
+        }
+
+        public int getComputerPoint() {
+            return this.computerPoint;
         }
 
 

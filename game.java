@@ -1,38 +1,37 @@
 public class game {
     public static void main(String[] args) {
-        everything link = new everything();
+        everything connect = new everything();
 
-        link.shuffleDeck();
+        connect.shuffleDeck();
 
-        link.cutDeck();
+        connect.cutDeck();
 
-        link.firstMoveCards();
+        connect.firstMoveCards();
 
-        link.gameMethod();
+        connect.gameMethod();
 
-        link.secondMoveCards();
+        connect.secondMoveCards();
 
-        link.gameMethod();
+        connect.gameMethod();
 
-        link.thirdMoveCards();
+        connect.thirdMoveCards();
 
-        link.gameMethod();
+        connect.gameMethod();
 
-        link.fourthMoveCards();
+        connect.fourthMoveCards();
 
-        link.gameMethod();
+        connect.gameMethod();
 
-        link.fifthMoveCards();
+        connect.fifthMoveCards();
 
-        link.gameMethod();
+        connect.gameMethod();
 
-        link.sixthMoveCards();
+        connect.sixthMoveCards();
 
-        link.gameMethod();
+        connect.gameMethod();
 
-        System.out.println(link.playerPoint);
-        System.out.println(link.computerPoint);
-
+        System.out.println(connect.getPlayerPoint());
+        System.out.println(connect.getComputerPoint());
 
     }
 }
