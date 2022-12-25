@@ -30,6 +30,8 @@ public class game {
 
         connect.gameMethod();
 
+        connect.lastCardsOnTheTable();
+
         System.out.println(connect.getPlayerPoint());
         System.out.println(connect.getComputerPoint());
 

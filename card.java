@@ -1,21 +1,18 @@
 public class card {
+
     private int value;
-    private String name;
+    private String symbol;
 
     public card(int a,String b) {
-        value = a;
-        name = b;
+        value=a;
+        symbol=b;
 
     }
-    public int getValue() {
-        return value;
-    }
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    public String getName() {
-        return name;
-    }
-
+    public int getValue() {return value;}
+    public void setValue(int value) {this.value = value;}
+    public String getSymbol() {return symbol;}
+    public void setSymbol(String symbol) {this.symbol = symbol;}
 }
+
+
+
