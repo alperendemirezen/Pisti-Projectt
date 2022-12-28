@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.io.*;
 public class everything {
     card[] newDeck;
     card[] firstPart;
@@ -11,6 +12,7 @@ public class everything {
     card[] playerAll;
     card[] computerAll;
     card lastCard;
+
     private int playerPoint;
     private int computerPoint;
     private int turnCounter;
@@ -39,6 +41,7 @@ public class everything {
         computerAllCounter = 0;
         codeBlocks = "on";
         lastCard = new card(0,"c");
+
 
 
         for(int i=0;i<52;i++){
@@ -312,8 +315,10 @@ public class everything {
             return this.computerPoint;
         }
 
-    }
 
+
+
+}
 
 
 
