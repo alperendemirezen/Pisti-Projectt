@@ -38,6 +38,22 @@ public class everything {
         playerAllCounter = 0;
         computerAllCounter = 0;
         codeBlocks = "on";
+        lastCard = new card(0,"c");
+
+
+        for(int i=0;i<52;i++){
+            card boardCard = new card(0,"b");
+            boardCards[i] = boardCard;
+        }
+        for(int i=0;i<52;i++){
+            card computerCard = new card(0,"c");
+            computerAll[i] = computerCard;
+        }
+        for(int i=0;i<52;i++){
+            card playerCard = new card(0,"p");
+            playerAll[i] = playerCard;
+        }
+
 
 
         for (int i = 0; i < 13; i++) {
@@ -142,11 +158,10 @@ public class everything {
         for (int i = 0; i < 4; i++) {
 
             for (int k = 0; k < 4; k++) {
+                if(boardCounter!=0){
+                    if (computerCards[k].getValue() == lastCard.getValue() || computerCards[k].getValue() == 11) {
 
-
-                if (computerCards[k].getValue() == lastCard.getValue() || computerCards[k].getValue() == 11) {
-
-                        boardCards[boardCounter] = computerCards[i];
+                        boardCards[boardCounter].copyCard(computerCards[k]);
                         boardCounter++;
                         computerCards[k].setValue(-1);
                         computerPointMethod();
@@ -154,7 +169,7 @@ public class everything {
                         codeBlocks = "off";
 
                         for (int j = 0; j < boardCounter; j++) {
-                            computerAll[computerAllCounter + j] = boardCards[j];
+                            computerAll[computerAllCounter + j].copyCard(boardCards[j]);
                             boardCards[j].setValue(0);
                             turnCounter++;
 
@@ -164,46 +179,64 @@ public class everything {
                         turnCounter = 0;
                         lastCard.setValue(0);
                         break;
+                    }
                 }
             }
             if (codeBlocks.equals("on")) {
 
                 int x = r.nextInt(computerCards.length);
-                while (computerCards[x].getValue()==0) {
+                while (computerCards[x].getValue()==-1) {
                     x = r.nextInt(computerCards.length);
-                    if (computerCards[x].getValue()!=0)
+                    if (computerCards[x].getValue()!=-1)
                         break;
                 }
 
 
-                boardCards[boardCounter] = computerCards[x];
-                lastCard = computerCards[x];
+                boardCards[boardCounter].copyCard(computerCards[x]);
+                lastCard.copyCard(computerCards[x]);
                 computerCards[x].setValue(-1);
                 boardCounter++;
             }
-
-
             codeBlocks = "on";
+
+
+            if(lastCard.getValue()==0){
+                System.out.println("No card on the table");
+            }
+            else {
+                System.out.println("Last card on the table is:" + " " + lastCard.getValue() + lastCard.getSymbol());
+            }
+            for (int k=0;k<4;k++){
+                if(playerCards[k].getValue()==11){System.out.println( k + "=" + "Jack" + playerCards[k].getSymbol());}
+                else if(playerCards[k].getValue()==12){System.out.println( k + "=" + "Quenn" + playerCards[k].getSymbol());}
+                else if(playerCards[k].getValue()==13){System.out.println( k + "=" + "King" + playerCards[k].getSymbol());}
+                else if(playerCards[k].getValue()==-1){System.out.println(k + "=" );}
+                else {System.out.println( k + "=" + playerCards[k].getValue() + playerCards[k].getSymbol());}
+
+
+            }
             System.out.println("Choose a number to play your card 0,1,2 or 3.");
+
+
             int chosen = sc.nextInt();
-            while (playerCards[chosen].getValue()==0) {
+            while (playerCards[chosen].getValue()==-1) {
                 System.out.println("You used this card please choose another card.Do not choose this number until the cards are dealt again.");
                 chosen = sc.nextInt();
-                if (playerCards[chosen].getValue()!=0) {
+                if (playerCards[chosen].getValue()!=-1) {
                     break;
                 }
             }
 
 
             if (playerCards[chosen].getValue() == lastCard.getValue() || playerCards[chosen].getValue() == 11) {
-                boardCards[boardCounter] = playerCards[chosen];
+                boardCards[boardCounter].copyCard(playerCards[chosen]);
                 boardCounter++;
-                playerCards[chosen].setValue(-2);
+                playerCards[chosen].setValue(-1);
                 playerPointMethod();
                 lastWinner = "player";
 
                 for (int j = 0; j < boardCounter; j++) {
-                    playerAll[playerAllCounter + j] = boardCards[j];
+                    playerAll[playerAllCounter + j].copyCard(boardCards[j]);
                     boardCards[j].setValue(0);
                     turnCounter++;
                 }
@@ -212,10 +245,10 @@ public class everything {
                 turnCounter = 0;
 
             } else {
-                boardCards[boardCounter] = playerCards[chosen];
-                lastCard = playerCards[chosen];
+                boardCards[boardCounter].copyCard(playerCards[chosen]);
+                lastCard.copyCard(playerCards[chosen]);
                 boardCounter++;
-                playerCards[chosen].setValue(-2);
+                playerCards[chosen].setValue(-1);
             }
 
         }
@@ -227,6 +260,13 @@ public class everything {
             }
             if(lastWinner.equals("computer")){
                 computerPointMethod();
+            }
+
+            if(playerAllCounter>computerAllCounter){
+                playerPoint+=3;
+            }
+            if(computerAllCounter>playerAllCounter){
+                computerPoint+=3;
             }
         }
 
