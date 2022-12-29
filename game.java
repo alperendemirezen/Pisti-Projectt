@@ -1,9 +1,8 @@
 
-
 public class game {
-    public static void main(String[] args) {
-        everything connect = new everything();
+    public static void main(String[] args)  {
 
+        everything connect = new everything();
 
 
         connect.shuffleDeck();
@@ -36,21 +35,28 @@ public class game {
 
         connect.lastCardsOnTheTable();
 
+
+
         if(connect.getPlayerPoint()>connect.getComputerPoint()){
             System.out.println("The player point: " + connect.getPlayerPoint());
             System.out.println("The computer point " + connect.getComputerPoint());
             System.out.println("The winner is player------------------------");
+
         }
         if(connect.getPlayerPoint()<connect.getComputerPoint()){
             System.out.println("The player point: " + connect.getPlayerPoint());
             System.out.println("The computer point " + connect.getComputerPoint());
             System.out.println("The winner is computer------------------------");
+
         }
         if(connect.getPlayerPoint()==connect.getComputerPoint()){
             System.out.println("The player point: " + connect.getPlayerPoint());
             System.out.println("The computer point " + connect.getComputerPoint());
-            System.out.println("No winner");
+            System.out.println("There is no winner------------------------");
+
         }
+
+
 
     }
 }
