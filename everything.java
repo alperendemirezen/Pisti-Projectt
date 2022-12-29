@@ -202,13 +202,12 @@ public class everything {
             }
             codeBlocks = "on";
 
+            if(lastCard.getValue()==0){System.out.println("No card on the table");}
+            else if (lastCard.getValue()==11) {System.out.println("Last card on the table is:" + " " + "Jack" + lastCard.getSymbol());}
+            else if(lastCard.getValue()==12) {System.out.println("Last card on the table is:" + " " + "Quenn" + lastCard.getSymbol());}
+            else if (lastCard.getValue()==13) {System.out.println("Last card on the table is:" + " " + "King" + lastCard.getSymbol());}
+            else {System.out.println("Last card on the table is:" + " " + lastCard.getValue() + lastCard.getSymbol());}
 
-            if(lastCard.getValue()==0){
-                System.out.println("No card on the table");
-            }
-            else {
-                System.out.println("Last card on the table is:" + " " + lastCard.getValue() + lastCard.getSymbol());
-            }
             for (int k=0;k<4;k++){
                 if(playerCards[k].getValue()==11){System.out.println( k + "=" + "Jack" + playerCards[k].getSymbol());}
                 else if(playerCards[k].getValue()==12){System.out.println( k + "=" + "Quenn" + playerCards[k].getSymbol());}
@@ -216,11 +215,9 @@ public class everything {
                 else if(playerCards[k].getValue()==-1){System.out.println(k + "=" );}
                 else {System.out.println( k + "=" + playerCards[k].getValue() + playerCards[k].getSymbol());}
 
-
             }
+
             System.out.println("Choose a number to play your card 0,1,2 or 3.");
-
-
             int chosen = sc.nextInt();
             while (playerCards[chosen].getValue()==-1) {
                 System.out.println("You used this card please choose another card.Do not choose this number until the cards are dealt again.");
