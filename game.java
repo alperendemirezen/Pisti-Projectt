@@ -11,47 +11,47 @@ public class game {
 
         connect.firstMoveCards();
 
-        connect.gameMethod();
+        connect.playGame();
 
         connect.secondMoveCards();
 
-        connect.gameMethod();
+        connect.playGame();
 
         connect.thirdMoveCards();
 
-        connect.gameMethod();
+        connect.playGame();
 
         connect.fourthMoveCards();
 
-        connect.gameMethod();
+        connect.playGame();
 
         connect.fifthMoveCards();
 
-        connect.gameMethod();
+        connect.playGame();
 
         connect.sixthMoveCards();
 
-        connect.gameMethod();
+        connect.playGame();
 
         connect.lastCardsOnTheTable();
 
 
 
-        if(connect.getPlayerPoint()>connect.getComputerPoint()){
-            System.out.println("The player point: " + connect.getPlayerPoint());
-            System.out.println("The computer point " + connect.getComputerPoint());
+        if(connect.getPlayerScore()>connect.getComputerScore()){
+            System.out.println("The player point: " + connect.getPlayerScore());
+            System.out.println("The computer point " + connect.getComputerScore());
             System.out.println("The winner is player------------------------");
 
         }
-        if(connect.getPlayerPoint()<connect.getComputerPoint()){
-            System.out.println("The player point: " + connect.getPlayerPoint());
-            System.out.println("The computer point " + connect.getComputerPoint());
+        if(connect.getPlayerScore()<connect.getComputerScore()){
+            System.out.println("The player point: " + connect.getPlayerScore());
+            System.out.println("The computer point " + connect.getComputerScore());
             System.out.println("The winner is computer------------------------");
 
         }
-        if(connect.getPlayerPoint()==connect.getComputerPoint()){
-            System.out.println("The player point: " + connect.getPlayerPoint());
-            System.out.println("The computer point " + connect.getComputerPoint());
+        if(connect.getPlayerScore()==connect.getComputerScore()){
+            System.out.println("The player point: " + connect.getPlayerScore());
+            System.out.println("The computer point " + connect.getComputerScore());
             System.out.println("There is no winner------------------------");
 
         }

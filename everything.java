@@ -13,8 +13,8 @@ public class everything {
     card[] playerAll;
     card[] computerAll;
     card lastCard;
-    private int playerPoint;
-    private int computerPoint;
+    private int playerScore;
+    private int computerScore;
     private int turnCounter;
     private int boardCounter;
     private int playerAllCounter;
@@ -33,8 +33,8 @@ public class everything {
         boardCards = new card[52]; //first 4 cards on the table
         playerAll = new card[52]; //array where the player's won cards go
         computerAll = new card[52]; //array where the computer's won cards go
-        playerPoint = 0; //player's score
-        computerPoint = 0; //computer's score
+        playerScore = 0; //player's score
+        computerScore = 0; //computer's score
         turnCounter = 0;  //counter used to see how many times the loop has run
         boardCounter = 4; //number of cards on the board
         playerAllCounter = 0; //number of cards won by the player
@@ -158,7 +158,7 @@ public class everything {
         //When the cards in the hands of the players are exhausted, the cards are dealt a sixth and last time.
     }
 
-    public void gameMethod() {
+    public void playGame() {
         Random r = new Random();
         Scanner sc = new Scanner(System.in);
 
@@ -177,7 +177,7 @@ public class everything {
                         boardCards[boardCounter].copyCard(computerCards[k]);    //The card of the same value is thrown on the table.
                         boardCounter++;
                         computerCards[k].setValue(-1);    //The value was changed to minus one so that the index used by the players would not be used until the card came again.
-                        computerPointMethod();     //How many points will be counted and added before the cards on the table are collected.
+                        computerPoint();     //How many points will be counted and added before the cards on the table are collected.
                         lastWinner = "computer";   //If there is no winner after that, the computer will take the remaining cards on the table.
                         codeBlocks = "off";        //The value has become "off" so that it is not entered in the next line of code.
 
@@ -253,7 +253,7 @@ public class everything {
                 boardCards[boardCounter].copyCard(playerCards[chosen]);   //The selected card is thrown onto the table.
                 boardCounter++;
                 playerCards[chosen].setValue(-1);
-                playerPointMethod();     //How many points will be counted and added before the cards on the table are collected.
+                playerPoint();     //How many points will be counted and added before the cards on the table are collected.
                 lastWinner = "player";   //If there is no winner after that, the player will take the remaining cards on the table.
 
                 for (int j = 0; j < boardCounter; j++) {
@@ -279,64 +279,63 @@ public class everything {
 
     public void lastCardsOnTheTable() {
         if (lastWinner.equals("player")) {
-            playerPointMethod();
+            playerPoint();
         }
         if (lastWinner.equals("computer")) {
-            computerPointMethod();
+            computerPoint();
         }
 
         if (playerAllCounter > computerAllCounter) {
-            playerPoint += 3;
+            playerScore += 3;
         }
         if (computerAllCounter > playerAllCounter) {
-            computerPoint += 3;
+            computerScore += 3;
         }
         //Method that checks who wins last. Prints the score of the remaining cards on the table to the last winner.
         //It also detects who has the most cards and adds 3 point.
 
     }
 
-    public void playerPointMethod() {
+    public void playerPoint() {
 
         if (boardCounter == 2 && boardCards[0].getValue() == boardCards[1].getValue()) {
-            playerPoint += 10;
+            playerScore += 10;
         }
         for (int i = 0; i < boardCounter; i++) {
             if (boardCards[i].getValue() == 2 && boardCards[i].getSymbol().equals("♣")) {
-                playerPoint += 1;
+                playerScore += 1;
             }
             if (boardCards[i].getValue() == 10 && boardCards[i].getSymbol().equals("♦")) {
-                playerPoint += 2;
+                playerScore += 2;
             }
-            playerPoint += 1;
+            playerScore += 1;
         }
         //Method that calculates all scoring for player.
     }
 
-
-    public void computerPointMethod() {
+    public void computerPoint() {
 
         if (boardCounter == 2 && boardCards[0].getValue() == boardCards[1].getValue()) {
-            computerPoint += 10;
+            computerScore += 10;
         }
         for (int i = 0; i < boardCounter; i++) {
             if (boardCards[i].getValue() == 2 && boardCards[i].getSymbol().equals("♣")) {
-                computerPoint += 1;
+                computerScore += 1;
             }
             if (boardCards[i].getValue() == 10 && boardCards[i].getSymbol().equals("♦")) {
-                computerPoint += 2;
+                computerScore += 2;
             }
-            computerPoint += 1;
+            computerScore += 1;
         }
         //Method that calculates all scoring for computer.
     }
 
-    public int getPlayerPoint() {
-        return this.playerPoint;
+    public int getPlayerScore() {
+        return this.playerScore;
     }
 
-    public int getComputerPoint() {
-        return this.computerPoint;
+    public int getComputerScore() {
+        return this.computerScore;
     }
 
 
