@@ -169,12 +169,17 @@ public class everything {
                 if (boardCounter != 0) {
                     if (computerCards[k].getValue() == lastCard.getValue() || computerCards[k].getValue() == 11) {
                 //If the computer has a card with the same number as the last card on the table, it will enter this block.(or joker)
-                        boardCards[boardCounter].copyCard(computerCards[k]); //The card of the same value is thrown on the table.
+
+                        if (computerCards[k].getValue()==11){System.out.println("Computer played this card and take all:" + "Joker" + computerCards[k].getSymbol());}
+                        else {System.out.println("Computer played this card and take all:" + computerCards[k].getValue() + computerCards[k].getSymbol());}
+                        //Shows which card the computer won by discarding
+
+                        boardCards[boardCounter].copyCard(computerCards[k]);    //The card of the same value is thrown on the table.
                         boardCounter++;
-                        computerCards[k].setValue(-1); //The value was changed to minus one so that the index used by the players would not be used until the card came again.
-                        computerPointMethod(); //How many points will be counted and added before the cards on the table are collected.
-                        lastWinner = "computer";//If there is no winner after that, the computer will take the remaining cards on the table.
-                        codeBlocks = "off";//The value has become "off" so that it is not entered in the next line of code.
+                        computerCards[k].setValue(-1);    //The value was changed to minus one so that the index used by the players would not be used until the card came again.
+                        computerPointMethod();     //How many points will be counted and added before the cards on the table are collected.
+                        lastWinner = "computer";   //If there is no winner after that, the computer will take the remaining cards on the table.
+                        codeBlocks = "off";        //The value has become "off" so that it is not entered in the next line of code.
 
                         for (int j = 0; j < boardCounter; j++) {
                             computerAll[computerAllCounter + j].copyCard(boardCards[j]);
@@ -211,27 +216,18 @@ public class everything {
 
             if (lastCard.getValue() == 0) { //If there is no card on the table, it gives a warning saying that there is no card.
                 System.out.println("No card on the table");
-            } else if (lastCard.getValue() == 11) {
-                System.out.println("Last card on the table is:" + " " + "Jack" + lastCard.getSymbol());
-            } else if (lastCard.getValue() == 12) {
-                System.out.println("Last card on the table is:" + " " + "Quenn" + lastCard.getSymbol());
-            } else if (lastCard.getValue() == 13) {
-                System.out.println("Last card on the table is:" + " " + "King" + lastCard.getSymbol());
-            } else {
-                System.out.println("Last card on the table is:" + " " + lastCard.getValue() + lastCard.getSymbol());
+            } else if (lastCard.getValue() == 11) {System.out.println("Last card on the table is:" + " " + "Jack" + lastCard.getSymbol());
+            } else if (lastCard.getValue() == 12) {System.out.println("Last card on the table is:" + " " + "Quenn" + lastCard.getSymbol());
+            } else if (lastCard.getValue() == 13) {System.out.println("Last card on the table is:" + " " + "King" + lastCard.getSymbol());
+            } else {System.out.println("Last card on the table is:" + " " + lastCard.getValue() + lastCard.getSymbol());
             }
 
             for (int k = 0; k < 4; k++) {
-                if (playerCards[k].getValue() == 11) {
-                    System.out.println(k + "=" + "Jack" + playerCards[k].getSymbol());
-                } else if (playerCards[k].getValue() == 12) {
-                    System.out.println(k + "=" + "Quenn" + playerCards[k].getSymbol());
-                } else if (playerCards[k].getValue() == 13) {
-                    System.out.println(k + "=" + "King" + playerCards[k].getSymbol());
-                } else if (playerCards[k].getValue() == -1) {
-                    System.out.println(k + "=");
-                } else {
-                    System.out.println(k + "=" + playerCards[k].getValue() + playerCards[k].getSymbol());
+                if (playerCards[k].getValue() == 11) {System.out.println(k + "=" + "Jack" + playerCards[k].getSymbol());
+                } else if (playerCards[k].getValue() == 12) {System.out.println(k + "=" + "Quenn" + playerCards[k].getSymbol());
+                } else if (playerCards[k].getValue() == 13) {System.out.println(k + "=" + "King" + playerCards[k].getSymbol());
+                } else if (playerCards[k].getValue() == -1) {System.out.println(k + "=");
+                } else {System.out.println(k + "=" + playerCards[k].getValue() + playerCards[k].getSymbol());
                 }
             }
             //Jack,Queen and King defined to be printed on the screen after cutting and mixing sections.
@@ -250,16 +246,15 @@ public class everything {
                 }
                 if (chosen <= 3 && chosen >= 0 && playerCards[chosen].getValue() != -1) { break; }
             }
-            //Deals a card by taking a number from the player.If something else is entered instead of a number, the input is requested again.
-
+            //If an incorrect number or text is entered, it will give an error and ask to be entered again.
 
             if (playerCards[chosen].getValue() == lastCard.getValue() || playerCards[chosen].getValue() == 11) {
                 //If the value of the index selected is the same as the last card, it enters this block.(or joker)
-                boardCards[boardCounter].copyCard(playerCards[chosen]);//The selected card is thrown onto the table.
+                boardCards[boardCounter].copyCard(playerCards[chosen]);   //The selected card is thrown onto the table.
                 boardCounter++;
                 playerCards[chosen].setValue(-1);
-                playerPointMethod();//How many points will be counted and added before the cards on the table are collected.
-                lastWinner = "player";//If there is no winner after that, the player will take the remaining cards on the table.
+                playerPointMethod();     //How many points will be counted and added before the cards on the table are collected.
+                lastWinner = "player";   //If there is no winner after that, the player will take the remaining cards on the table.
 
                 for (int j = 0; j < boardCounter; j++) {
                     playerAll[playerAllCounter + j].copyCard(boardCards[j]);
@@ -297,6 +292,8 @@ public class everything {
             computerPoint += 3;
         }
         //Method that checks who wins last. Prints the score of the remaining cards on the table to the last winner.
+        //It also detects who has the most cards and adds 3 point.
+
     }
 
     public void playerPointMethod() {
@@ -341,6 +338,8 @@ public class everything {
     public int getComputerPoint() {
         return this.computerPoint;
     }
+
+
 
 
 }
